@@ -1,18 +1,35 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1 id="title">RIVENDOM</h1>
+    <div class="subtitle">• COMPENDIUM •</div>
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+<style lang="scss">
+.home {
+  align-self: center;
 
-export default {
-  name: 'Home',
-  components: {
-    HelloWorld,
-  },
-};
-</script>
+  #title {
+    margin: 0;
+    font-size: 300%;
+    font-variant: small-caps;
+
+    @include breakpoint(xl) {
+      font-size: 400%;
+    }
+  }
+
+  .subtitle {
+    width: 70%;
+    padding-top: 10px;
+    font-size: 150%;
+    border-top: 2px solid #5BC0BE;
+    margin: 0 auto;
+
+    @include breakpoint(xl) {
+      width: 50%;
+      font-size: 200%;
+    }
+  }
+}
+</style>
