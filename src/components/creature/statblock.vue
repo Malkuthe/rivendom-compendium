@@ -67,8 +67,6 @@ export default {
       const { description, ...actions } = this.creature.legendaryActions;
       this.legendaryActionsDescription = description;
       this.legendaryActions = actions;
-      console.log(description);
-      console.log(actions);
     }
   },
   mounted() {
