@@ -80,7 +80,7 @@ export default {
 <style lang="scss">
 .creature-statblock {
   margin: 0 auto;
-  padding: 0.5em;
+  padding: 0 0 0.5em 0;
   border: 1px solid rgba(0,0,0,0.4);
   box-shadow: 0px 5px 10px 0px #50576240;
   border-left: none;
@@ -88,8 +88,22 @@ export default {
   border-top: none;
   font-size: 90%;
   text-align: left;
+
+  .creature-statistics {
+    padding: 0 0.5em;
+  }
+
   @include breakpoint(xl) {
     columns: 2;
+    padding: 0.5em;
+
+    .creature-header {
+      border-radius: 0.5em;
+    }
+
+    .creature-statistics {
+      padding: 0;
+    }
   }
 
   @include breakpoint(m) {
@@ -107,10 +121,6 @@ export default {
     border: 1px solid #cbd4d1;
     margin: 0.5em 0 0 0;
     break-after: avoid;
-  }
-
-  .creature-header {
-    border-radius: 0.5em;
   }
 
   .creature-feature {
