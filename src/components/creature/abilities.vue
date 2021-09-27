@@ -1,9 +1,11 @@
 <template>
   <div class="creature-abilities">
-    <div v-for="(value,name) of abilities" :key="name"
-        class="entry" :class="`entry-${name}`">
-      <div class="value" :class="`value-${name}`">{{value}} ({{getModifier(value)}})</div>
-      <div class="label" :class="`label-${name}`">{{name}}</div>
+    <div v-for="ability in abilities" :key="ability"
+        class="entry" :class="`entry-${ability}`">
+      <div class="value" :class="`value-${ability}`">
+        {{source[ability]}} ({{getModifier(source[ability])}})
+      </div>
+      <div class="label" :class="`label-${ability}`">{{ability}}</div>
     </div>
   </div>
 </template>
@@ -11,6 +13,7 @@
 <script>
 export default {
   props: ['source'],
+  inject: ['abilityOrder'],
   methods: {
     getModifier(score) {
       const mod = Math.floor((score - 10) / 2);
@@ -23,14 +26,8 @@ export default {
     };
   },
   created() {
-    this.abilities = {
-      str: this.source.str,
-      dex: this.source.dex,
-      con: this.source.con,
-      int: this.source.int,
-      wis: this.source.wis,
-      cha: this.source.cha,
-    };
+    this.abilities = Object.keys(this.source)
+      .sort((a, b) => this.abilityOrder.indexOf(a) - this.abilityOrder.indexOf(b));
   },
 };
 </script>

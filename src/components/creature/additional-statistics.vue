@@ -45,6 +45,7 @@ import statbox from '@/components/creature/statbox.vue';
 export default {
   props: ['creature'],
   components: { 'creature-statbox': statbox },
+  inject: ['abilityOrder'],
   data() {
     return {
       saves: null,
@@ -54,22 +55,26 @@ export default {
   created() {
     if (this.creature) {
       if (this.creature.saves) {
-        const saves = Object.entries(this.creature.saves);
+        const saves = Object.keys(this.creature.saves)
+          .sort((a, b) => this.abilityOrder.indexOf(a.toLowerCase())
+            - this.abilityOrder.indexOf(b.toLowerCase()));
         let saveString = '';
-        for (let i = 0; i < saves.length; i += 1) {
-          saveString += `${saves[i][0]} ${saves[i][1] >= 0 ? '+' : ''}${saves[i][1]}`;
-          if (i < saves.length - 1) { saveString += ', '; }
-        }
+        saves.forEach((save, index) => {
+          const value = this.creature.saves[save];
+          saveString += `${save} ${value >= 0 ? '+' : ''}${value}`;
+          if (index < saves.length - 1) { saveString += ', '; }
+        });
         this.saves = saveString;
       }
 
       if (this.creature.skills) {
-        const skills = Object.entries(this.creature.skills);
+        const skills = Object.keys(this.creature.skills).sort();
         let skillString = '';
-        for (let i = 0; i < skills.length; i += 1) {
-          skillString += `${skills[i][0]} ${skills[i][1] >= 0 ? '+' : ''}${skills[i][1]}`;
-          if (i < skills.length - 1) { skillString += ', '; }
-        }
+        skills.forEach((skill, index) => {
+          const value = this.creature.skills[skill];
+          skillString += `${skill} ${value >= 0 ? '+' : ''}${value}`;
+          if (index < skills.length - 1) { skillString += ', '; }
+        });
         this.skills = skillString;
       }
     }
