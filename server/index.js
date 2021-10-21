@@ -5,8 +5,6 @@ const app = express();
 
 app.get('/api/creature/:creature_id', (req, res) => {
   const id = req.params.creature_id;
-  console.log(id);
-  console.log(process.env.API_ENDPOINT);
   axios.get(`${process.env.API_ENDPOINT}/creature/${id}`, {
     headers: {
       'X-Api-Key': process.env.API_KEY,
